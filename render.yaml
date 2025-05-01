@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: techbridge-api
+    env: python
+    rootDir: api
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    plan: free
+    envVars:
+      - key: JWT_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+
+  - type: web
+    name: techbridge-admin
+    env: static
+    rootDir: admin-ui
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
+    plan: free
